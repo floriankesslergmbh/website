@@ -1,0 +1,41 @@
+name: Deploy Hugo site to Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: codeberg-tiny-lazy
+    container:
+      image: hugomods/hugo:exts-0.157.0
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - run: hugo --gc --minify
+      - uses: https://code.forgejo.org/actions/upload-artifact@v3
+        with:
+          name: site
+          path: public/
+
+  deploy:
+    needs: [build]
+    runs-on: codeberg-tiny-lazy
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - run: |
+          git checkout pages || git switch --orphan pages
+          rm -rf $(ls -A | grep -v '^\.git$')
+      - uses: https://code.forgejo.org/actions/download-artifact@v3
+        with:
+          name: site
+      - run: |
+          echo "fke.systems" > .domains
+          git config user.email "codeberg-ci"
+          git config user.name "Codeberg CI"
+          git add .
+          git commit --allow-empty -m "Deploy ${GITHUB_SHA::7}"
+          git push origin pages
