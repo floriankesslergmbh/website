@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: codeberg-tiny-lazy
     container:
-      image: hugomods/hugo:exts-0.157.0
+      image: hugomods/hugo:latest
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
         with:
