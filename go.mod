@@ -1,4 +1,4 @@
-module codeberg.org/floriankesslergmbh/pages
+module github.com/floriankesslergmbh/website
 
 go 1.26
 
