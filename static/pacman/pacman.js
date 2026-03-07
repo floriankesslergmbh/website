@@ -695,17 +695,22 @@ Pacman.Audio = function(game) {
         progressEvents = [],
         playing        = [];
     
-    function load(name, path, cb) { 
+    function load(name, path, cb) {
 
         var f = files[name] = document.createElement("audio");
+        var called = false;
+        var done = function() {
+            if (!called) { called = true; if (typeof cb === "function") cb(); }
+        };
 
-        progressEvents[name] = function(event) { progress(event, name, cb); };
-        
+        progressEvents[name] = function(event) { progress(event, name, done); };
+
         f.addEventListener("canplaythrough", progressEvents[name], true);
         f.setAttribute("preload", "true");
         f.setAttribute("autobuffer", "true");
         f.setAttribute("src", path);
-        f.pause();        
+        f.pause();
+        setTimeout(done, 2000);
     };
 
     function progress(event, name, callback) { 
