@@ -31,13 +31,12 @@ html:not(.dark) .hextra-footer {
   gap: 4rem;
 }
 .landing-right {
-  height: 80vh;
+  min-height: 80vh;
   background: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   padding: 5rem 0 4rem;
 }
 html.dark .landing-left {
