@@ -66,36 +66,44 @@
 
       // Touch controls: swipe for direction, tap to start/pause
       (function() {
-        var startX, startY;
-        var threshold = 30;
+        var startX, startY, swiped;
+        var threshold = 20;
 
         function sendKey(keyCode) {
           document.dispatchEvent(new KeyboardEvent('keydown', {keyCode: keyCode, bubbles: true}));
         }
 
         el.addEventListener('touchstart', function(e) {
+          e.preventDefault();
           var t = e.touches[0];
           startX = t.clientX;
           startY = t.clientY;
-        }, {passive: true});
+          swiped = false;
+        }, {passive: false});
 
-        el.addEventListener('touchend', function(e) {
-          var t = e.changedTouches[0];
+        el.addEventListener('touchmove', function(e) {
+          e.preventDefault();
+          if (swiped) return;
+          var t = e.touches[0];
           var dx = t.clientX - startX;
           var dy = t.clientY - startY;
 
-          if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) {
-            // Tap: start game (N) or pause (P)
-            sendKey(78); // N
-            return;
-          }
+          if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return;
+          swiped = true;
 
           if (Math.abs(dx) > Math.abs(dy)) {
             sendKey(dx > 0 ? 39 : 37); // RIGHT : LEFT
           } else {
             sendKey(dy > 0 ? 40 : 38); // DOWN : UP
           }
-        }, {passive: true});
+        }, {passive: false});
+
+        el.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          if (!swiped) {
+            sendKey(78); // Tap: N (start/restart)
+          }
+        }, {passive: false});
       })();
     </script>
     {{ partial "scripts.html" . }}
