@@ -45,7 +45,7 @@
             &nbsp;·&nbsp;
             <a href="/agb/" style="text-decoration:underline;color:inherit">AGB</a>
           </span>
-          {{ with os.Getenv "HUGO_COMMIT_HASH" }}<span>{{ substr . 0 7 }}</span>{{ end }}
+          {{ with os.Getenv "HUGO_COMMIT_HASH" }}<span>{{ substr . 0 7 }}</span>{{ else }}{{ with .GitInfo }}<span>{{ .AbbreviatedHash }}</span>{{ end }}{{ end }}
         </footer>
 
       </div>

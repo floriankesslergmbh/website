@@ -34,9 +34,11 @@ html:not(.dark) .hextra-footer {
   height: 80vh;
   background: #000;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 2rem 0;
 }
 html.dark .landing-left {
   background: #000;

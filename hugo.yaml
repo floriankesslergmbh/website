@@ -1,6 +1,7 @@
 title: Florian Kessler GmbH
 baseURL: https://fke.systems
 defaultContentLanguage: de
+enableGitInfo: true
 
 module:
   imports:
