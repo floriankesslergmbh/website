@@ -28,8 +28,13 @@ menu:
 
 params:
   navbar:
-    displayTitle: true
-    displayLogo: false
+    displayTitle: false
+    displayLogo: true
+    logo:
+      path: images/logo.svg
+      dark: images/logo-dark.svg
+      width: 200
+      height: 42
 
   footer:
     displayCopyright: false
