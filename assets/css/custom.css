@@ -1,0 +1,61 @@
+/* Dark mode: pure black instead of Hextra's #111 */
+html.dark body {
+  background: #000 !important;
+}
+
+/* Remove navbar bottom line */
+.hextra-nav-container-blur {
+  box-shadow: none !important;
+}
+
+/* Light mode: grey background for navbar and footer */
+html:not(.dark) .hextra-nav-container-blur {
+  background: #f3f4f6 !important;
+}
+html:not(.dark) .hextra-footer {
+  background: #f3f4f6;
+}
+
+/* Landing page layout */
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.landing-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 2rem;
+  gap: 4rem;
+}
+.landing-right {
+  height: 80vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+html.dark .landing-left {
+  background: #000;
+}
+.pacman-container {
+  width: 80%;
+  max-width: 440px;
+}
+@media (min-width: 768px) {
+  .landing {
+    flex-direction: row;
+  }
+  .landing-left {
+    width: 50%;
+    padding: 4rem;
+  }
+  .landing-right {
+    width: 50%;
+    height: auto;
+    min-height: 100vh;
+  }
+}
