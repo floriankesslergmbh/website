@@ -38,7 +38,7 @@ html:not(.dark) .hextra-footer {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 2rem 0;
+  padding: 3rem 0 2rem;
 }
 html.dark .landing-left {
   background: #000;
@@ -52,11 +52,11 @@ html.dark .landing-left {
   display: none;
   grid-template-areas:
     ".    up   ."
-    "left mid  right"
+    "left .    right"
     ".    down .";
-  grid-template-columns: repeat(3, 3rem);
-  grid-template-rows: repeat(3, 3rem);
-  gap: 0.25rem;
+  grid-template-columns: repeat(3, 3.5rem);
+  grid-template-rows: repeat(3, 3.5rem);
+  gap: 0.5rem;
   margin-top: 1.5rem;
 }
 @media (pointer: coarse) {
@@ -82,7 +82,6 @@ html.dark .landing-left {
 }
 .dpad-up    { grid-area: up; }
 .dpad-left  { grid-area: left; }
-.dpad-center{ grid-area: mid; }
 .dpad-right { grid-area: right; }
 .dpad-down  { grid-area: down; }
 
