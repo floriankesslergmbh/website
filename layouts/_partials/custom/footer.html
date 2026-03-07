@@ -11,4 +11,9 @@
       <a href="/agb/" class="hx:hover:text-gray-900 hx:dark:hover:text-gray-200">AGB</a>
     </div>
   </div>
+  {{ with os.Getenv "HUGO_COMMIT_HASH" }}
+  <div style="border-top:1px solid;border-color:inherit;padding:1rem 0;font-size:0.75rem;opacity:0.5">
+    {{ substr . 0 7 }}
+  </div>
+  {{ end }}
 </div>

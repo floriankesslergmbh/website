@@ -29,6 +29,8 @@ jobs:
           extended: true
       - name: Build
         run: hugo --gc --minify
+        env:
+          HUGO_COMMIT_HASH: ${{ github.sha }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

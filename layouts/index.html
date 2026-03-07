@@ -37,12 +37,15 @@
         </main>
 
         {{/* Bottom links */}}
-        <footer style="font-size:0.75rem;color:var(--hx-color-gray-400,#9ca3af)">
-          <a href="/impressum/" style="text-decoration:underline;color:inherit">Impressum</a>
-          &nbsp;·&nbsp;
-          <a href="/datenschutz/" style="text-decoration:underline;color:inherit">Datenschutz</a>
-          &nbsp;·&nbsp;
-          <a href="/agb/" style="text-decoration:underline;color:inherit">AGB</a>
+        <footer style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;color:var(--hx-color-gray-400,#9ca3af)">
+          <span>
+            <a href="/impressum/" style="text-decoration:underline;color:inherit">Impressum</a>
+            &nbsp;·&nbsp;
+            <a href="/datenschutz/" style="text-decoration:underline;color:inherit">Datenschutz</a>
+            &nbsp;·&nbsp;
+            <a href="/agb/" style="text-decoration:underline;color:inherit">AGB</a>
+          </span>
+          {{ with os.Getenv "HUGO_COMMIT_HASH" }}<span>{{ substr . 0 7 }}</span>{{ end }}
         </footer>
 
       </div>
