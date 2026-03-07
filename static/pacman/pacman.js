@@ -710,7 +710,7 @@ Pacman.Audio = function(game) {
         f.setAttribute("autobuffer", "true");
         f.setAttribute("src", path);
         f.pause();
-        setTimeout(done, 2000);
+        setTimeout(done, 500);
     };
 
     function progress(event, name, callback) { 
@@ -973,7 +973,7 @@ var PACMAN = (function () {
         } else if (state === WAITING && stateChanged) {            
             stateChanged = false;
             map.draw(ctx);
-            dialog("Press N to start a New game");            
+            dialog(window.matchMedia("(pointer:coarse)").matches ? "Tap to start a New game" : "Press N to start a New game");            
         } else if (state === EATEN_PAUSE && 
                    (tick - timerStart) > (Pacman.FPS / 3)) {
             map.draw(ctx);
@@ -1074,19 +1074,20 @@ var PACMAN = (function () {
         load(audio_files, function() { loaded(); });
     };
 
-    function load(arr, callback) { 
-        
-        if (arr.length === 0) { 
-            callback();
-        } else { 
-            var x = arr.pop();
-            audio.load(x[0], x[1], function() { load(arr, callback); });
+    function load(arr, callback) {
+        var remaining = arr.length;
+        if (remaining === 0) { callback(); return; }
+        for (var i = 0; i < arr.length; i++) {
+            audio.load(arr[i][0], arr[i][1], function() {
+                remaining -= 1;
+                if (remaining === 0) { callback(); }
+            });
         }
     };
         
     function loaded() {
 
-        dialog("Press N to Start");
+        dialog(window.matchMedia("(pointer:coarse)").matches ? "Tap to Start" : "Press N to Start");
         
         document.addEventListener("keydown", keyDown, true);
         document.addEventListener("keypress", keyPress, true); 
