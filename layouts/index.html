@@ -53,6 +53,13 @@
       {{/* Right section — Pac-Man */}}
       <div class="landing-right">
         <div id="pacman-wrapper" class="pacman-container"></div>
+        <div class="dpad" aria-hidden="true">
+          <button class="dpad-btn dpad-up" data-key="38">&#9650;</button>
+          <button class="dpad-btn dpad-left" data-key="37">&#9664;</button>
+          <button class="dpad-btn dpad-center" data-key="78">&#9654;</button>
+          <button class="dpad-btn dpad-right" data-key="39">&#9654;</button>
+          <button class="dpad-btn dpad-down" data-key="40">&#9660;</button>
+        </div>
       </div>
 
     </div>
@@ -64,46 +71,45 @@
       var el = document.getElementById("pacman-wrapper");
       PACMAN.init(el, '{{ "pacman/" | relURL }}');
 
-      // Touch controls: swipe for direction, tap to start/pause
+      // Touch controls
       (function() {
-        var startX, startY, swiped;
-        var threshold = 20;
-
         function sendKey(keyCode) {
           document.dispatchEvent(new KeyboardEvent('keydown', {keyCode: keyCode, bubbles: true}));
         }
 
+        // Swipe on game canvas
+        var startX, startY, swiped, threshold = 20;
         el.addEventListener('touchstart', function(e) {
           e.preventDefault();
-          var t = e.touches[0];
-          startX = t.clientX;
-          startY = t.clientY;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
           swiped = false;
         }, {passive: false});
-
         el.addEventListener('touchmove', function(e) {
           e.preventDefault();
           if (swiped) return;
-          var t = e.touches[0];
-          var dx = t.clientX - startX;
-          var dy = t.clientY - startY;
-
+          var dx = e.touches[0].clientX - startX, dy = e.touches[0].clientY - startY;
           if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return;
           swiped = true;
-
-          if (Math.abs(dx) > Math.abs(dy)) {
-            sendKey(dx > 0 ? 39 : 37); // RIGHT : LEFT
-          } else {
-            sendKey(dy > 0 ? 40 : 38); // DOWN : UP
-          }
+          sendKey(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 39 : 37) : (dy > 0 ? 40 : 38));
         }, {passive: false});
-
         el.addEventListener('touchend', function(e) {
           e.preventDefault();
-          if (!swiped) {
-            sendKey(78); // Tap: N (start/restart)
-          }
+          if (!swiped) sendKey(78);
         }, {passive: false});
+
+        // D-pad buttons
+        document.querySelectorAll('.dpad-btn').forEach(function(btn) {
+          var code = parseInt(btn.dataset.key);
+          btn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            sendKey(code);
+          }, {passive: false});
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sendKey(code);
+          });
+        });
       })();
     </script>
     {{ partial "scripts.html" . }}
