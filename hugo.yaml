@@ -21,6 +21,10 @@ menu:
     - name: Blog
       pageRef: /blog
       weight: 2
+    - name: Theme
+      weight: 3
+      params:
+        type: theme-toggle
     - name: Search
       weight: 4
       params:
