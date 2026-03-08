@@ -1,3 +1,8 @@
+/* Override Tailwind's blue-tinted grey with neutral CI grey */
+:root {
+  --hx-color-gray-500: #737373;
+}
+
 /* Dark mode: pure black instead of Hextra's #111 */
 html.dark body {
   background: #000 !important;
