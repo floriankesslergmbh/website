@@ -21,7 +21,7 @@ Amtsgericht München, HRB 309174
 
 ## Umsatzsteuer-Identifikationsnummer
 
-DE460333574
+DE460333754
 
 ## Berufshaftpflichtversicherung
 
